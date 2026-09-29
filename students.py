@@ -1,7 +1,7 @@
 
 from colorama import Fore, Style, init
 import json
-
+from datetime import datetime
 init()
 
 last_id = None
@@ -11,11 +11,11 @@ students = []
 
 
 class Student:
-    def __init__(self, name, age, student_id) -> None:
+    def __init__(self, name, age, student_id, attendance = None) -> None:
         self.name = name
         self.age = age
         self.student_id = student_id
-
+        self.attendance = attendance
 
 def load_student():
     global students
@@ -45,6 +45,7 @@ def save_student():
             'name': student.name,
             'age': student.age,
             'ID': student.student_id
+
         })
 
     data_save = {
@@ -120,6 +121,73 @@ def show_student():
             print('name:',student.name, '\nage:',student.age, '\nID:', student.student_id)
             print(Fore.CYAN,'*'*40,Style.RESET_ALL)
 
+
+
+
+def save_attendance():
+    data = []
+    today = datetime.now().strftime("%Y-%m-%d")
+    for student in students:
+        data.append({
+            'name': student.name,
+            'ID': student.student_id,
+            'attendance': student.attendance
+            
+        })
+
+    data_save = {
+        'date' : today,
+        'attendance': data
+    }
+
+
+    with  open('records.json', 'r') as file:
+        records = json.load(file)
+
+        
+    for record in records['records']:
+        if record['date'] == today:
+            record['attendance'] = data
+            break
+    else:
+        records['records'].append(data_save)  
+
+
+    with open('records.json', 'w') as file:
+        json.dump(records, file, indent=4)
+
+
+
+
+def student_attendance():
+    print(Fore.CYAN,'today:',datetime.now().strftime("%Y-%m-%d | %H:%M"), Style.RESET_ALL)
+    if len(students) == 0:
+        print(Fore.RED,'you dont have any student!',Style.RESET_ALL)
+    else:
+        for student in students:
+            while True:
+                print('name:',student.name)
+                print('1.present   2.absent   3.late   4.exused')
+                attendance = input('\tattendance:')
+                if attendance == '1' or '':
+                    student.attendance = 'present'
+                    break
+                elif attendance == '2':
+                    student.attendance = 'absent'
+                    break
+                elif attendance == '3':
+                    student.attendance = 'late'
+                    break
+                elif attendance == '4':
+                    student.attendance = 'exused'
+                    break
+                else:
+                    print(Fore.RED ,'please write number between 1 to 4!', Style.RESET_ALL)
+                    continue
+        save_attendance()        
+
+
+#def view_attendance_summary():
 
 
 

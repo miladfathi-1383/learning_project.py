@@ -42,7 +42,7 @@ while True:
                     print(Fore.GREEN + '\tchoice: ' + Style.RESET_ALL, end='')
                     choice = input()  
                     if choice == '1':
-                        pass
+                        students.student_attendance()
                     elif choice == '2':
                         pass
                     elif choice == '3':

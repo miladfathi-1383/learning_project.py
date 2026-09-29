@@ -1,1 +1,24 @@
-[]
+{
+    "records": [
+        {
+            "date": "2026-09-29",
+            "attendance": [
+                {
+                    "name": "mitra",
+                    "ID": 1000,
+                    "attendance": "present"
+                },
+                {
+                    "name": "milad",
+                    "ID": 1001,
+                    "attendance": "absent"
+                },
+                {
+                    "name": "sayran",
+                    "ID": 1002,
+                    "attendance": "late"
+                }
+            ]
+        }
+    ]
+}
