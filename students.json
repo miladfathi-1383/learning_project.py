@@ -1,0 +1,20 @@
+{
+    "last_id": 1002,
+    "students": [
+        {
+            "name": "mitra",
+            "age": 27,
+            "ID": 1000
+        },
+        {
+            "name": "milad",
+            "age": 27,
+            "ID": 1001
+        },
+        {
+            "name": "sayran",
+            "age": 45,
+            "ID": 1002
+        }
+    ]
+}

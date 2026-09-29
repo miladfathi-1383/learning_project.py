@@ -1,0 +1,130 @@
+
+from colorama import Fore, Style, init
+import json
+
+init()
+
+last_id = None
+first_id = 1000
+ID_list = []
+students = []
+
+
+class Student:
+    def __init__(self, name, age, student_id) -> None:
+        self.name = name
+        self.age = age
+        self.student_id = student_id
+
+
+def load_student():
+    global students
+    global last_id
+
+    with open('students.json', 'r') as file:
+        data = json.load(file)
+
+    last_id = data['last_id']
+
+    for student_data in data['students']:
+        student = Student(
+            student_data['name'],
+            student_data['age'],
+            student_data['ID']
+        )
+
+        students.append(student)
+        ID_list.append(student.student_id)
+
+
+def save_student():
+    data = []
+
+    for student in students:
+        data.append({
+            'name': student.name,
+            'age': student.age,
+            'ID': student.student_id
+        })
+
+    data_save = {
+        'last_id': last_id,
+        'students': data
+    }
+
+    with open('students.json', 'w') as file:
+        json.dump(data_save, file, indent=4)
+
+
+def get_name():
+
+    while True:
+        name = input('Name: ').strip()
+
+        if name and name.replace(' ', '').isalpha():
+            return name
+
+        print(Fore.RED,'Please write a correct name!',Style.RESET_ALL)
+
+
+def get_age():
+
+    while True:
+        try:
+            age = int(input('age:'))
+
+            if age <= 0:
+                print('age shoud be bigger than zero!')
+                continue
+
+            elif age > 110:
+                print('age should less than 110!')
+                continue
+
+            else:
+                return age
+
+        except:
+            print('write corect age')
+
+
+def add_student():
+    global last_id
+
+    name = get_name()
+    age = get_age()
+
+    if len(ID_list) == 0:
+        student_id = first_id
+        last_id = first_id
+
+    else:
+        last_id += 1
+        student_id = last_id
+
+    ID_list.append(student_id)
+
+    student = Student(name, age, student_id)
+
+    students.append(student)
+
+    save_student()
+
+
+def show_student():
+    if len(students)== 0:
+        print(Fore.RED,'you dont have any student!',Style.RESET_ALL)
+
+    else:
+        for student in students:
+            print('name:',student.name, '\nage:',student.age, '\nID:', student.student_id)
+            print(Fore.CYAN,'*'*40,Style.RESET_ALL)
+
+
+
+
+
+
+
+load_student()
+
