@@ -46,7 +46,7 @@ while True:
                     elif choice == '2':
                         pass
                     elif choice == '3':
-                        pass
+                        students.view_attendance_summary()
                     elif choice == '4':
                         break
                     else:

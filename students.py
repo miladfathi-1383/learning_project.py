@@ -187,8 +187,35 @@ def student_attendance():
         save_attendance()        
 
 
-#def view_attendance_summary():
+def view_attendance_summary():
+    with  open('records.json', 'r') as file:
+        records = json.load(file)   
+    present =0
+    late = 0
+    absent = 0
+    exused = 0
+    year = input('year:')
+    month = input('month:')
+    day = input('day:')
+    selected_date = datetime(int(year), int(month), int(day))
+    selected_date = selected_date.strftime('%Y-%m-%d')
+    for record in records['records']:
+        if record['date'] == selected_date:
+            for student in record['attendance']:
 
+                if student['attendance'] == 'present':
+                    present +=1
+                elif student['attendance'] == 'absent':
+                    absent +=1
+                elif student['attendance'] == 'late':
+                    late +=1
+                elif student['attendance'] == 'exused':
+                    exused+=1
+    print(Fore.RED ,'present:',present,'\tabsent:',absent,'\tlate:',late,'\taxused:',exused, Style.RESET_ALL)
+    for student in record['attendance']:
+        print(Fore.YELLOW ,'*'*40, Style.RESET_ALL)
+        print('name:',student['name'],'\tattendance:', student['attendance'])
+        print(Fore.YELLOW ,'*'*40, Style.RESET_ALL)
 
 
 
