@@ -73,7 +73,7 @@ while True:
                 elif choice == '2':
                     students.view_notes()
                 elif choice == '3':
-                    pass
+                    students.delete_notes()
                 elif choice == '4':
                     break
                 else:
@@ -106,3 +106,16 @@ while True:
         break
     else:
         print(Fore.RED ,'please write number between 1 to 4!', Style.RESET_ALL)
+
+
+
+
+
+
+
+
+
+
+
+
+

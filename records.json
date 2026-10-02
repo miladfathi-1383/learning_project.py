@@ -22,21 +22,21 @@
         },
         {
             "date": "2026-10-01",
-            "teacher notes": [
+            "attendance": [
                 {
                     "name": "mitra",
                     "ID": 1000,
-                    "note": "hi mitra"
+                    "attendance": "present"
                 },
                 {
                     "name": "milad",
                     "ID": 1001,
-                    "note": ""
+                    "attendance": "present"
                 },
                 {
                     "name": "sayran",
                     "ID": 1002,
-                    "note": ""
+                    "attendance": "present"
                 }
             ]
         },

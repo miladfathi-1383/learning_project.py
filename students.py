@@ -172,7 +172,7 @@ def student_attendance():
                 print('name:',student.name)
                 print('1.present   2.absent   3.late   4.exused')
                 attendance = input('\tattendance:')
-                if attendance == '1' or '':
+                if attendance == '1' :
                     student.attendance = 'present'
                     break
                 elif attendance == '2':
@@ -190,34 +190,59 @@ def student_attendance():
         save_attendance()        
 
 
+
 def view_attendance_summary():
-    with  open('records.json', 'r') as file:
-        records = json.load(file)   
-    present =0
+    with open('records.json', 'r') as file:
+        records = json.load(file)
+
+    present = 0
     late = 0
     absent = 0
     exused = 0
+
     year = input('year:')
     month = input('month:')
     day = input('day:')
+
     selected_date = datetime(int(year), int(month), int(day))
     selected_date = selected_date.strftime('%Y-%m-%d')
+
     for record in records['records']:
         if record['date'] == selected_date:
-            for student in record['attendance']:
 
+            for student in record['attendance']:
                 if student['attendance'] == 'present':
-                    present +=1
+                    present += 1
                 elif student['attendance'] == 'absent':
-                    absent +=1
+                    absent += 1
                 elif student['attendance'] == 'late':
-                    late +=1
+                    late += 1
                 elif student['attendance'] == 'exused':
-                    exused+=1
-    print(Fore.RED ,'present:',present,'\tabsent:',absent,'\tlate:',late,'\taxused:',exused, Style.RESET_ALL)
-    for student in record['attendance']:
-        print('name:',student['name'],'\tattendance:', student['attendance'])
-        print(Fore.YELLOW ,'*'*40, Style.RESET_ALL)
+                    exused += 1
+
+            print(
+                Fore.RED,
+                'present:', present,
+                '\tabsent:', absent,
+                '\tlate:', late,
+                '\texused:', exused,
+                Style.RESET_ALL
+            )
+
+            for student in record['attendance']:
+                print(
+                    'name:', student['name'],
+                    '\tattendance:', student['attendance']
+                )
+                print(Fore.YELLOW, '*' * 40, Style.RESET_ALL)
+
+            break
+
+    else:
+        print('There is no record for this date.')
+
+
+  
 
 
 
@@ -259,43 +284,80 @@ def save_notes():
 
     
 def add_notes():
-    print(Fore.CYAN,'today:',datetime.now().strftime("%Y-%m-%d | %H:%M"), Style.RESET_ALL)
+    print(Fore.CYAN,'today:',datetime.now().strftime("%Y-%m-%d | %H:%M"),Style.RESET_ALL)
     while True:
         if len(students) == 0:
             print(Fore.RED,'you dont have any student!',Style.RESET_ALL)
             break
-        else :
+        else:
             student_name_id = input('enter your student id or name:')
             for student in students:
-                if student_name_id==student.name or student_name_id== str(student.student_id) :
+                if (student_name_id == student.name or student_name_id == str(student.student_id)):
                     teacher_note = input('enter your note for:')
-                    student.note  =  teacher_note
+                    student.note = teacher_note
                     save_notes()
                     break
-                
-        break
+            else:
+                print(Fore.RED,'student not found!',Style.RESET_ALL)
+            break
+
+
+
 
 
 def view_notes():
-    with  open('notes.json', 'r') as file:
+    with open('notes.json', 'r') as file:
         records = json.load(file)
-
-
-
     year = input('year:')
     month = input('month:')
     day = input('day:')
-    selected_date = datetime(int(year), int(month), int(day))
+    try:
+        selected_date = datetime(int(year), int(month), int(day))
+    except:
+        print(Fore.RED, 'Please enter a correct date!', Style.RESET_ALL)
+        return
     selected_date = selected_date.strftime('%Y-%m-%d')
     for record in records['records']:
         if record['date'] == selected_date:
             for student in record['notes']:
-                print('name:',student['name'],'\tnotes:', student['note'])
-                print(Fore.YELLOW ,'*'*40, Style.RESET_ALL)
+                print('name:',student['name'],'\tnotes:',student['note'])
+                print(Fore.YELLOW,'*' * 40,Style.RESET_ALL)
+            break
+    else:
+        print(Fore.RED,'There is no record for this date.',Style.RESET_ALL)
 
 
 
 
+def delete_notes():
+
+    with open('notes.json', 'r') as file:
+        records = json.load(file)
+
+    year = input('year:')
+    month = input('month:')
+    day = input('day:')
+
+    student_name = input('your student name:')
+    try:
+        selected_date = datetime(int(year), int(month), int(day))
+    except:
+        print(Fore.RED, 'Please enter a correct date!', Style.RESET_ALL)
+        return
+    selected_date = selected_date.strftime('%Y-%m-%d')
+    for record in records['records']:
+        if record['date'] == selected_date:
+            for student in record['notes']:
+                if student['name'] == student_name:
+                    student['note'] = ''
+                    print('note deleted')
+                    with open('notes.json', 'w') as file:
+                        json.dump(records, file, indent=4)
+                    return
+            print(Fore.RED,'student not found!',Style.RESET_ALL)
+            return
+
+    print(Fore.RED,'There is no record for this date.',Style.RESET_ALL)
 
 
 
