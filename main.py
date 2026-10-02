@@ -22,9 +22,21 @@ def attendance_menu():
     print('1.Take today\'s attendance\n2.Edit Today\'s attendance\n3.View Attendance summary\n4.Exit')
 
 
+
+def note_menu():
+    print(Fore.BLUE , '\nnotes', Style.RESET_ALL )
+    print('1.add notes\n2.View notes\n3.delete notes\n4.Exit')
+
+
+
 def student_menu():
     print(Fore.BLUE , '\nStudent', Style.RESET_ALL )
     print('1.add student\n2.View students\n3.Exit')
+
+
+
+
+
 
 
 while True:
@@ -53,7 +65,19 @@ while True:
                         print(Fore.RED ,'please write number between 1 to 4!', Style.RESET_ALL)
 
             elif choice == '2':
-                pass
+                note_menu()
+                print(Fore.GREEN + '\tchoice: ' + Style.RESET_ALL, end='')
+                choice = input()
+                if choice == '1':
+                    students.add_notes()
+                elif choice == '2':
+                    students.view_notes()
+                elif choice == '3':
+                    pass
+                elif choice == '4':
+                    break
+                else:
+                    print(Fore.RED ,'please write number between 1 to 4!', Style.RESET_ALL)
             elif choice == '3':
                 pass
             elif choice == '4':

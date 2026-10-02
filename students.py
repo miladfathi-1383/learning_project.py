@@ -11,11 +11,14 @@ students = []
 
 
 class Student:
-    def __init__(self, name, age, student_id, attendance = None) -> None:
+    def __init__(self, name, age, student_id, attendance = None, note = '') -> None:
         self.name = name
         self.age = age
         self.student_id = student_id
         self.attendance = attendance
+        self.note = note
+
+
 
 def load_student():
     global students
@@ -213,9 +216,85 @@ def view_attendance_summary():
                     exused+=1
     print(Fore.RED ,'present:',present,'\tabsent:',absent,'\tlate:',late,'\taxused:',exused, Style.RESET_ALL)
     for student in record['attendance']:
-        print(Fore.YELLOW ,'*'*40, Style.RESET_ALL)
         print('name:',student['name'],'\tattendance:', student['attendance'])
         print(Fore.YELLOW ,'*'*40, Style.RESET_ALL)
+
+
+
+
+
+
+def save_notes():
+    data = []
+    today = datetime.now().strftime("%Y-%m-%d")
+    for student in students:
+        data.append({
+            'name': student.name,
+            'ID': student.student_id,
+            'note': student.note            
+        })
+
+    data_save = {
+        'date' : today,
+        'notes': data
+    }
+
+
+    with  open('notes.json', 'r') as file:
+        records = json.load(file)
+
+        
+    for record in records['records']:
+        if record['date'] == today:
+            record['notes'] = data
+            break
+    else:
+        records['records'].append(data_save)  
+
+
+    with open('notes.json', 'w') as file:
+        json.dump(records, file, indent=4)
+
+
+
+    
+def add_notes():
+    print(Fore.CYAN,'today:',datetime.now().strftime("%Y-%m-%d | %H:%M"), Style.RESET_ALL)
+    while True:
+        if len(students) == 0:
+            print(Fore.RED,'you dont have any student!',Style.RESET_ALL)
+            break
+        else :
+            student_name_id = input('enter your student id or name:')
+            for student in students:
+                if student_name_id==student.name or student_name_id== str(student.student_id) :
+                    teacher_note = input('enter your note for:')
+                    student.note  =  teacher_note
+                    save_notes()
+                    break
+                
+        break
+
+
+def view_notes():
+    with  open('notes.json', 'r') as file:
+        records = json.load(file)
+
+
+
+    year = input('year:')
+    month = input('month:')
+    day = input('day:')
+    selected_date = datetime(int(year), int(month), int(day))
+    selected_date = selected_date.strftime('%Y-%m-%d')
+    for record in records['records']:
+        if record['date'] == selected_date:
+            for student in record['notes']:
+                print('name:',student['name'],'\tnotes:', student['note'])
+                print(Fore.YELLOW ,'*'*40, Style.RESET_ALL)
+
+
+
 
 
 

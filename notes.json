@@ -1,32 +1,12 @@
 {
     "records": [
         {
-            "date": "2026-09-29",
-            "attendance": [
-                {
-                    "name": "mitra",
-                    "ID": 1000,
-                    "attendance": "present"
-                },
-                {
-                    "name": "milad",
-                    "ID": 1001,
-                    "attendance": "absent"
-                },
-                {
-                    "name": "sayran",
-                    "ID": 1002,
-                    "attendance": "present"
-                }
-            ]
-        },
-        {
             "date": "2026-10-01",
-            "teacher notes": [
+            "notes": [
                 {
                     "name": "mitra",
                     "ID": 1000,
-                    "note": "hi mitra"
+                    "note": ""
                 },
                 {
                     "name": "milad",
@@ -42,26 +22,26 @@
         },
         {
             "date": "2026-10-02",
-            "attendance": [
+            "notes": [
                 {
                     "name": "mitra",
                     "ID": 1000,
-                    "attendance": "present"
+                    "note": "edrthvhsvhsvht"
                 },
                 {
                     "name": "milad",
                     "ID": 1001,
-                    "attendance": "exused"
+                    "note": "evh njdr rt n nrth "
                 },
                 {
                     "name": "sayran",
                     "ID": 1002,
-                    "attendance": "late"
+                    "note": "dtybjbjbjbbh"
                 },
                 {
                     "name": "eqbal",
                     "ID": 1003,
-                    "attendance": "absent"
+                    "note": "vhvhsrtrhsdvrhdhrvhvh"
                 }
             ]
         }
