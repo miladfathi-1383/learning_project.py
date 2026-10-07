@@ -11,14 +11,13 @@ students = []
 
 
 class Student:
-    def __init__(self, name, age, student_id, attendance = None, note = '') -> None:
+    def __init__(self, name, age, student_id, attendance = None, note = '' , homework = '') -> None:
         self.name = name
         self.age = age
         self.student_id = student_id
         self.attendance = attendance
         self.note = note
-
-
+        self.homework = homework
 
 def load_student():
     global students
@@ -125,8 +124,6 @@ def show_student():
             print(Fore.CYAN,'*'*40,Style.RESET_ALL)
 
 
-
-
 def save_attendance():
     data = []
     today = datetime.now().strftime("%Y-%m-%d")
@@ -160,8 +157,6 @@ def save_attendance():
         json.dump(records, file, indent=4)
 
 
-
-
 def student_attendance():
     print(Fore.CYAN,'today:',datetime.now().strftime("%Y-%m-%d | %H:%M"), Style.RESET_ALL)
     if len(students) == 0:
@@ -188,7 +183,6 @@ def student_attendance():
                     print(Fore.RED ,'please write number between 1 to 4!', Style.RESET_ALL)
                     continue
         save_attendance()        
-
 
 
 def view_attendance_summary():
@@ -242,13 +236,6 @@ def view_attendance_summary():
         print('There is no record for this date.')
 
 
-  
-
-
-
-
-
-
 def save_notes():
     data = []
     today = datetime.now().strftime("%Y-%m-%d")
@@ -277,12 +264,11 @@ def save_notes():
         records['records'].append(data_save)  
 
 
+
     with open('notes.json', 'w') as file:
         json.dump(records, file, indent=4)
 
 
-
-    
 def add_notes():
     print(Fore.CYAN,'today:',datetime.now().strftime("%Y-%m-%d | %H:%M"),Style.RESET_ALL)
     while True:
@@ -300,9 +286,6 @@ def add_notes():
             else:
                 print(Fore.RED,'student not found!',Style.RESET_ALL)
             break
-
-
-
 
 
 def view_notes():
@@ -325,8 +308,6 @@ def view_notes():
             break
     else:
         print(Fore.RED,'There is no record for this date.',Style.RESET_ALL)
-
-
 
 
 def delete_notes():
@@ -358,8 +339,6 @@ def delete_notes():
             return
 
     print(Fore.RED,'There is no record for this date.',Style.RESET_ALL)
-
-
 
 
 load_student()
